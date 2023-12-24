@@ -13,10 +13,13 @@
   #include <arpa/inet.h>
   #include <netdb.h> 
   #include <unistd.h>
+  
+  #define INVALID_SOCKET 0
+  #define SOCKET_ERROR -1
 #endif
 
 int initSocket(void);
-void closeSocket(SOCKET sock);
+void closeSocket(int);
 void cleanup(void);
 
 int generateRandNum(int,int);
@@ -38,7 +41,7 @@ struct ResponseData {
 int main() {
 	
 	// Network control.
-	SOCKET s , new_socket;
+	int s , new_socket;
 	struct sockaddr_in server , client;
 	int c, recv_size, client_reply;
 	
@@ -201,7 +204,7 @@ int initSocket(void) {
   	#endif
 }
 
-void closeSocket(SOCKET sock) {
+void closeSocket(int sock) {
 	#ifdef _WIN32
 		closesocket(sock);
 	#else

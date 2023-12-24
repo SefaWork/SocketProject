@@ -12,6 +12,9 @@
   #include <arpa/inet.h>
   #include <netdb.h> 
   #include <unistd.h>
+  
+  #define INVALID_SOCKET 0
+  #define SOCKET_ERROR -1
 #endif
 
 // Data structure sent when the game starts.
@@ -29,12 +32,12 @@ struct ResponseData {
 };
 
 int initSocket(void);
-void closeSocket(SOCKET sock);
+void closeSocket(int);
 void cleanup(void);
 
 int main(void)
 {
-	SOCKET s;
+	int s;
 	struct sockaddr_in server;
 	int recv_size;
 	
@@ -142,7 +145,7 @@ int initSocket(void) {
   	#endif
 }
 
-void closeSocket(SOCKET sock) {
+void closeSocket(int sock) {
 	#ifdef _WIN32
 		closesocket(sock);
 	#else
