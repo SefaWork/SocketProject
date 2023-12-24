@@ -1,0 +1,7 @@
+
+# Development files.
+*.dev
+*.exe
+*.layout
+*.win
+*.o
